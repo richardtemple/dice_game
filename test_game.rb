@@ -20,4 +20,29 @@ class TestGame < Minitest::Test
     assert out.include? "Welcome to the game!"
     assert_equal "", err
   end
+
+  def test_get_input_to_roll
+
+  end
+
+  def test_roll_dice
+    @game.roll_dice
+    assert @game.current_dice.count == 5
+  end
+
+  def test_read_user_input
+    with_stdin do |user|
+      user.puts "user input"
+      assert_equal(@game.read_user_input, "user input")
+    end
+  end
+
+  def with_stdin
+    stdin = $stdin             # remember $stdin
+    $stdin, write = IO.pipe    # create pipe assigning its "read end" to $stdin
+    yield write                # pass pipe's "write end" to block
+  ensure
+    write.close                # close pipe
+    $stdin = stdin             # restore $stdin
+  end
 end
