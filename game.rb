@@ -12,7 +12,6 @@ class Game
     puts "Welcome to the game!"
     roll_dice
     select_dice
-    
   end
 
   def read_user_input
