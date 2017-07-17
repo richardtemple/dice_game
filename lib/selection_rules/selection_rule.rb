@@ -4,20 +4,25 @@ class SelectionRule
     @sets = []
     select_ones
     select_fives
-    puts @sets.to_s
-
+    select_other_multiples
+    @sets
   end
 
-  def set_six?
-  end
+  def select_other_multiples
+    
+    other_numbers = [2, 3, 4, 6]
+    other_numbers.each do |other_number|
+      set = []
+      if @dice.count(other_number) > 2
+        @dice.count(other_number).times {set << other_number}
+      end
+      if set.count > 0
+        @sets << set
 
-  def set_five?
-  end
-
-  def set_four?
-  end
-
-  def set_three?
+      end
+      @dice.delete(other_number)
+    end
+    
   end
 
   def select_ones

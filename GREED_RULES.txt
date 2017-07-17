@@ -1,23 +1,19 @@
-= Playing Greed
+The rules I'm using (https://en.wikipedia.org/wiki/Farkle)
 
-Greed is a dice game played among 2 or more players, using 5
-six-sided dice.
+1   =>   100 points
+5   =>   50  points
 
-== Playing Greed
+              3x   4x    5x    6x 
+Two           200  400   800   1600 
+Three         300  600   1200  2400
+Four          400  800   1600  3200
+Five          500  1000  2000  4000
+Six           600  1200  2400  4800
+One (high)    1000 2000  4000  8000
 
-Each player takes a turn consisting of one or more rolls of the dice.
-On the first roll of the game, a player rolls all five dice which are
-scored according to the following:
 
-  Three 1's => 1000 points
-  Three 6's =>  600 points
-  Three 5's =>  500 points
-  Three 4's =>  400 points
-  Three 3's =>  300 points
-  Three 2's =>  200 points
-  One   1   =>  100 points
-  One   5   =>   50 points
 
+----  old text to update below -------
 A single die can only be counted once in each roll.  For example,
 a "5" can only count as part of a triplet (contributing to the 500
 points) or as a single 50 points, but not both in the same roll.

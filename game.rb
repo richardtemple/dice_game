@@ -30,6 +30,7 @@ class Game
 
   def select_dice
     z = SelectionRule.new 
-    z.select_dice(dice: @current_dice)
+    @selected_dice = z.select_dice(dice: @current_dice)
+    puts @selected_dice.to_s
   end
 end
