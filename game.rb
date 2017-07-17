@@ -7,7 +7,7 @@ class Game
   def initialize
     @current_dice = []
   end
-
+ 
   def start
     puts "Welcome to the game!"
     roll_dice
