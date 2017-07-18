@@ -9,7 +9,6 @@ class SelectionRule
   end
 
   def select_other_multiples
-    
     other_numbers = [2, 3, 4, 6]
     other_numbers.each do |other_number|
       set = []
@@ -18,7 +17,6 @@ class SelectionRule
       end
       if set.count > 0
         @sets << set
-
       end
       @dice.delete(other_number)
     end
