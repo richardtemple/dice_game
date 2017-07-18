@@ -12,17 +12,25 @@ class Game
  
   def start
     puts "Welcome to the game!"
-    roll_dice
-    @selected_dice = select_dice
-    @current_dice = @current_dice - @selected_dice.flatten
-    puts "Current dice #{current_dice}"
-    puts "Selected dice: #{@selected_dice.to_s}"
-    score_sets
+    # roll_dice
+    # @selected_dice = select_dice
+    # if @selected_dice.count == 0
+    #   puts "oops! nothing to select!"
+    #   @selected_dice = []
+    # end
+    # @current_dice = @current_dice - @selected_dice.flatten
+    # puts "Current dice #{current_dice}"
+    # puts "Selected dice: #{@selected_dice.to_s}"
+    # score_sets
     while re_roll? do
       roll_dice(@current_dice.count)
       new_selection = select_dice
       if (new_selection.count > 0)
         @selected_dice += new_selection
+      else
+        puts "oops! nothing to select!!"
+        @selected_dice = []
+        break
       end
       @current_dice = @current_dice - @selected_dice.flatten
       puts "Current dice #{current_dice}"
@@ -57,7 +65,7 @@ class Game
   def re_roll?
     puts "count: #{@current_dice.count}"
     if @current_dice.count > 3 || @current_dice.count == 0
-      puts "Reroll!"
+      puts "Roll!"
       return true
     else
       puts "No Reroll!"
