@@ -21,18 +21,24 @@ class HandScore
 	end
 
 	def score_2(set:)
-		puts set[0].to_s + "method call"
-		@total_hand_score += 2
+		@total_hand_score += 200
+		if set.count > 3
+			(set.count - 3).times {@total_hand_score += 200}
+		end
 	end
 	
 	def score_3(set:)
-		puts set[0].to_s + "method call"
-		@total_hand_score += 3
+		@total_hand_score += 300
+		if set.count > 3
+			(set.count - 3).times {@total_hand_score += 300}
+		end
 	end
 	
 	def score_4(set:)
-		puts set[0].to_s + "method call"
-		@total_hand_score += 4
+		@total_hand_score += 400
+		if set.count > 3
+			(set.count - 3).times {@total_hand_score += 400}
+		end
 	end	
 	
 	def score_5(set:)
@@ -45,7 +51,9 @@ class HandScore
 	end
 	
 	def score_6(set:)
-		puts set[0].to_s + "method call"
-		@total_hand_score += 6
+		@total_hand_score += 600
+		if set.count > 3
+			(set.count - 3).times {@total_hand_score += 600}
+		end
 	end
 end
