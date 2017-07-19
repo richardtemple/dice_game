@@ -44,5 +44,4 @@ class SelectionRule
     end
     @dice.delete(5)
   end
-
 end

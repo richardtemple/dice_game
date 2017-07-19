@@ -4,12 +4,12 @@ The rules I'm using (https://en.wikipedia.org/wiki/Farkle)
 5   =>   50  points
 
               3x   4x    5x    6x 
-Two           200  400   800   1600 
-Three         300  600   1200  2400
-Four          400  800   1600  3200
-Five          500  1000  2000  4000
-Six           600  1200  2400  4800
-One (high)    1000 2000  4000  8000
+Two           200  400   600   800 
+Three         300  600   900   1200
+Four          400  800   1200  1600
+Five          500  1000  1500  2000
+Six           600  1200  1800  2400
+One (high)    1000 2000  3000  4000
 
 
 
