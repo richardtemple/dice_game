@@ -6,37 +6,35 @@ class Game
   attr_accessor :current_dice
 
   def initialize
-    @current_dice = []
-    @selected_dice = []
+    @current_dice     = []
+    @selected_dice    = []
+    @game_over        = false
+    @player_one_score = 0
+    @player_two_score = 0
   end
  
   def start
     puts "Welcome to the game!"
-    # roll_dice
-    # @selected_dice = select_dice
-    # if @selected_dice.count == 0
-    #   puts "oops! nothing to select!"
-    #   @selected_dice = []
-    # end
-    # @current_dice = @current_dice - @selected_dice.flatten
-    # puts "Current dice #{current_dice}"
-    # puts "Selected dice: #{@selected_dice.to_s}"
-    # score_sets
-    while re_roll? do
-      roll_dice(@current_dice.count)
-      new_selection = select_dice
-      if (new_selection.count > 0)
-        @selected_dice += new_selection
-      else
-        puts "oops! nothing to select!!"
-        @selected_dice = []
-        break
+    while !@game_over
+      while re_roll? do
+        roll_dice(@current_dice.count)
+        new_selection = select_dice
+        if (new_selection.count > 0)
+          @selected_dice += new_selection
+        else
+          puts "oops! nothing to select!!"
+          @selected_dice = []
+          break
+        end
+        @current_dice = @current_dice - @selected_dice.flatten
+        puts "New Current dice #{current_dice}"
+        puts "Selected dice: #{@selected_dice.to_s}"
       end
-      @current_dice = @current_dice - @selected_dice.flatten
-      puts "Current dice #{current_dice}"
-      puts "Selected dice: #{@selected_dice.to_s}"
+      score_sets
+      @current_dice = []
+      @selected_dice = []
     end
-    score_sets
+    puts "Player One Score: #{@player_one_score}"
   end
 
   def read_user_input
@@ -59,7 +57,12 @@ class Game
   end
 
   def score_sets
-  	puts "Total Score: #{HandScore.new.score_sets(sets: @selected_dice)}"
+    new_score = HandScore.new.score_sets(sets: @selected_dice)
+  	puts "Total Score: #{new_score}"
+    @player_one_score += new_score
+    if @player_one_score >= 10000
+      @game_over = true
+    end
   end
   
   def re_roll?
