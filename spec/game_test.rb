@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './game'
+require_relative '../game'
 
 class TestGame < Minitest::Test
 
@@ -27,7 +27,7 @@ class TestGame < Minitest::Test
 
   def test_roll_dice
     @game.roll_dice
-    assert @game.current_dice.count == 5
+    assert @game.current_dice.count == 6
   end
 
   def test_read_user_input
