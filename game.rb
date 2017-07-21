@@ -1,5 +1,6 @@
 require "./lib/selection_rules/selection_rule.rb"
 require "./lib/hand_score.rb"
+require "./lib/draw/draw_dice.rb"
 
 class Game
 
@@ -11,9 +12,13 @@ class Game
     @game_over        = false
     @player_one_score = 0
     @player_two_score = 0
+    @current_player_num = 1
   end
  
   def start
+    x = DrawDice.new.show
+    # x.draw
+
     puts "Welcome to the game!"
     while !@game_over
       while re_roll? do
