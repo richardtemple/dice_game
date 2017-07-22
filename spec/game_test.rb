@@ -12,7 +12,6 @@ class TestGame < Minitest::Test
   end
 
   def test_game_starts
-
     out, err = capture_io do
       @game.start
     end
