@@ -8,7 +8,7 @@ class DrawDice < Gosu::Window
     super(1800, 1200)
     self.caption = "Dice"
     
-    @one   = Gosu::Image.new("./media/1.png")
+    @one   = Gosu::Image.new ("./media/1.png")
     @two   = Gosu::Image.new("./media/2.png")
     @three = Gosu::Image.new("./media/3.png")
     @four  = Gosu::Image.new("./media/4.png")
@@ -21,7 +21,11 @@ class DrawDice < Gosu::Window
     case mouse_x
     when (5..1200) 
       if button_down?(Gosu::MsLeft)
-        draw
+        # if rand(2) == 1
+        #   roll1
+        # else
+        #   roll2
+        # end
       end
     end
     #other instructions that works well
