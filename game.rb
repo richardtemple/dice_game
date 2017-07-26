@@ -1,6 +1,7 @@
 require "./lib/selection_rules/selection_rule.rb"
 require "./lib/hand_score.rb"
 require "./lib/draw/draw_dice.rb"
+require "./lib/draw/die.rb"
 
 class Game
 
@@ -16,6 +17,7 @@ class Game
   end
  
   def start
+  	# require 'pry'; binding.pry;
     x = DrawDice.new.show
     # x.draw
 
