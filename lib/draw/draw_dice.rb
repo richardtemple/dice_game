@@ -15,7 +15,7 @@ class DrawDice < Gosu::Window
     @five  = Die.new
     @six   = Die.new
     @text =  Gosu::Font.new(20)
-@cursor = Gosu::Image.new(self, Die.new.image)
+    @cursor = Gosu::Image.new("./media/MousePntr.png")
   end
 
   def update
@@ -75,7 +75,7 @@ class DrawDice < Gosu::Window
     @five.image.draw(400, 1, 1, scale, scale )
     @six.image.draw(500, 1, 1, scale, scale ) 
     @text.draw("Score: HI Die = #{selected.to_s}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
-    @cursor.draw self.mouse_x, self.mouse_y, 0
+    @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
   end
 
   def roll2
