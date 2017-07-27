@@ -15,7 +15,7 @@ class DrawDice < Gosu::Window
     @five  = Die.new
     @six   = Die.new
     @text =  Gosu::Font.new(20)
-@cursor = Gosu::Image.new(self, Die.new.image)
+    @cursor = Gosu::Image.new(Die.new.image)
   end
 
   def update
@@ -78,13 +78,4 @@ class DrawDice < Gosu::Window
     @cursor.draw self.mouse_x, self.mouse_y, 0
   end
 
-  def roll2
-    scale = 0.2
-    @one.image.draw(100, 1, 1, scale, scale )
-    @two.image.draw(1, 50, 1, scale, scale )
-    @three.image.draw(300, 1, 1, scale, scale )
-    @four.image.draw(200, 50, 1, scale, scale )
-    @five.image.draw(500, 1, 1, scale, scale )
-    @six.image.draw(400, 50, 1, scale, scale )    
-  end
 end
