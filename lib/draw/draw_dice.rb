@@ -22,12 +22,12 @@ class DrawDice < Gosu::Window
     case mouse_x
     when (5..1200) 
       if button_down?(Gosu::MsLeft)
-        @one.roll
-        @two.roll
-        @three.roll
-        @four.roll
-        @five.roll
-        @six.roll
+        @one.roll if !@one.selected 
+        @two.roll if !@two.selected 
+        @three.roll if !@three.selected 
+        @four.roll if !@four.selected 
+        @five.roll if !@five.selected 
+        @six.roll if !@six.selected 
         @x = mouse_x
         @y = mouse_y
         
@@ -55,26 +55,33 @@ class DrawDice < Gosu::Window
     selected = 0
     case @x
     when (0..100)
+      @one.selected = true
       selected = 1
     when (100..200)
+      @two.selected = true
       selected = 2
     when (200..300)
+      @three.selected = true
       selected = 3
     when (300..400)
+      @four.selected = true
       selected = 4
     when (400..500)
+      @five.selected = true
       selected = 5
     when (500..600)
+      @six.selected = true
       selected = 6
     end
     scale = 0.2
-    @one.image.draw(1, 1, 1, scale, scale )
-    @two.image.draw(100, 1, 1, scale, scale )
-    @three.image.draw(200, 1, 1, scale, scale )
-    @four.image.draw(300, 1, 1, scale, scale )
-    @five.image.draw(400, 1, 1, scale, scale )
-    @six.image.draw(500, 1, 1, scale, scale ) 
+    @one.image.draw(1, 1, 0, scale, scale )
+    @two.image.draw(100, 1, 0, scale, scale )
+    @three.image.draw(200, 1, 0, scale, scale )
+    @four.image.draw(300, 1, 0, scale, scale )
+    @five.image.draw(400, 1, 0, scale, scale )
+    @six.image.draw(500, 1, 0, scale, scale ) 
     @text.draw("Score: HI Die = #{selected.to_s}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
+    draw_rect(((selected - 1) * 100) + 1, 1, 80, 80, Gosu::Color.argb(0x22_ff0000))
     @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
   end
 
