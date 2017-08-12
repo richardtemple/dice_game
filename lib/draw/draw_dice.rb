@@ -20,47 +20,6 @@ class DrawDice < Gosu::Window
   end
 
   def update
-    # case mouse_x
-    # when (5..1200) 
-    #   if button_down?(Gosu::MsLeft) # && @button_down = false
-    #     # @button_down = true
-    #     # if mouse_y < 150
-    #     #   case @x
-    #     #   when (0..100)
-    #     #     @one.selected = !@one.selected
-    #     #     # selected = 1
-    #     #   when (100..200)
-    #     #     @two.selected = !@two.selected
-    #     #     # selected = 2
-    #     #   when (200..300)
-    #     #     @three.selected = !@three.selected
-    #     #     # selected = 3
-    #     #   when (300..400)
-    #     #     @four.selected = !@four.selected
-    #     #     # selected = 4
-    #     #   when (400..500)
-    #     #     @five.selected = !@five.selected
-    #     #     # selected = 5
-    #     #   when (500..600)
-    #     #     @six.selected = !@six.selected
-    #     #     # selected = 6
-    #     #   end
-    #     # end
-
-    #     # @one.roll if !@one.selected 
-    #     # @two.roll if !@two.selected 
-    #     # @three.roll if !@three.selected 
-    #     # @four.roll if !@four.selected 
-    #     # @five.roll if !@five.selected 
-    #     # # @six.roll if !@six.selected 
-    #     # @x = mouse_x
-    #     # @y = mouse_y
-        
-    #   # else
-    #     # @button_down = false
-    #   end
-    # end
-    #other instructions that works well
   end
 
   def draw
@@ -99,18 +58,12 @@ class DrawDice < Gosu::Window
       when (500..600)
         @six.selected = !@six.selected if !@six.locked
       when (600..700)
-        @one.selected   ? @one.locked = true : @one.roll  
-        @two.selected   ? @two.locked = true : @two.roll  
+        @one.selected   ? @one.locked   = true : @one.roll  
+        @two.selected   ? @two.locked   = true : @two.roll  
         @three.selected ? @three.locked = true : @three.roll
-        @four.selected  ? @four.locked = true : @four.roll 
-        @five.selected  ? @five.locked = true : @five.roll 
-        @six.selected   ? @six.locked = true : @six.roll  
-
-        # @two.roll if !@two.selected 
-        # @three.roll if !@three.selected 
-        # @four.roll if !@four.selected 
-        # @five.roll if !@five.selected 
-        # @six.roll if !@six.selected 
+        @four.selected  ? @four.locked  = true : @four.roll 
+        @five.selected  ? @five.locked  = true : @five.roll 
+        @six.selected   ? @six.locked   = true : @six.roll  
       end
     end
     
