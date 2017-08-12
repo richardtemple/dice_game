@@ -46,17 +46,17 @@ class DrawDice < Gosu::Window
     if mouse_y < 150
       case mouse_x
       when (0..100)
-        @one.selected = !@one.selected if !one.locked
+        @one.selected   = !@one.selected   unless @one.locked
       when (100..200)
-        @two.selected = !@two.selected if !@two.locked
+        @two.selected   = !@two.selected   unless @two.locked
       when (200..300)
-        @three.selected = !@three.selected if !@three.locked
+        @three.selected = !@three.selected unless @three.locked
       when (300..400)
-        @four.selected = !@four.selected if !@four.locked
+        @four.selected  = !@four.selected  unless @four.locked
       when (400..500)
-        @five.selected = !@five.selected if !@five.locked
+        @five.selected  = !@five.selected  unless @five.locked
       when (500..600)
-        @six.selected = !@six.selected if !@six.locked
+        @six.selected   = !@six.selected   unless @six.locked
       when (600..700)
         @one.selected   ? @one.locked   = true : @one.roll  
         @two.selected   ? @two.locked   = true : @two.roll  
