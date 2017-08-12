@@ -24,7 +24,6 @@ class DrawDice < Gosu::Window
 
   def draw
     draw_rect(0, 0, 1800, 1200, Gosu::Color.argb(0xff_ffffff))
-    
     roll1
   end
 
@@ -66,6 +65,5 @@ class DrawDice < Gosu::Window
         @six.selected   ? @six.locked   = true : @six.roll  
       end
     end
-    
   end
 end
