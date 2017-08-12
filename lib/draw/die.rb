@@ -1,13 +1,14 @@
 class Die
 	attr_accessor :value, :image, :selected
 	def initialize()
+		@selected = false
 		roll
 	end
 
 	def roll
-		@value = rand(5) + 1
+		@value = rand(6) + 1
 		@image = Gosu::Image.new("./media/#{@value}.png")
-	  @selected = false
+	  # @selected = true
 	end
 
 end
