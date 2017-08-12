@@ -70,7 +70,6 @@ class DrawDice < Gosu::Window
   end
 
   def roll1
-
     scale = 0.2
     @one.image.draw(1,     @one.selected   ? 50 : 1, 0, scale, scale )
     @two.image.draw(100,   @two.selected   ? 50 : 1, 0, scale, scale )
@@ -80,6 +79,7 @@ class DrawDice < Gosu::Window
     @six.image.draw(500,   @six.selected   ? 50 : 1, 0, scale, scale ) 
     @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
+    draw_rect(600, 1, 100, 100, Gosu::Color.argb(0xff_000000), z = 0, mode = :default)
   end
 
   def button_down(id)
@@ -87,24 +87,30 @@ class DrawDice < Gosu::Window
     if mouse_y < 150
       case mouse_x
       when (0..100)
-        @one.selected = !@one.selected
+        @one.selected = !@one.selected if !one.locked
       when (100..200)
-        @two.selected = !@two.selected
+        @two.selected = !@two.selected if !@two.locked
       when (200..300)
-        @three.selected = !@three.selected
+        @three.selected = !@three.selected if !@three.locked
       when (300..400)
-        @four.selected = !@four.selected
+        @four.selected = !@four.selected if !@four.locked
       when (400..500)
-        @five.selected = !@five.selected
+        @five.selected = !@five.selected if !@five.locked
       when (500..600)
-        @six.selected = !@six.selected
+        @six.selected = !@six.selected if !@six.locked
       when (600..700)
-        @one.roll if !@one.selected 
-        @two.roll if !@two.selected 
-        @three.roll if !@three.selected 
-        @four.roll if !@four.selected 
-        @five.roll if !@five.selected 
-        @six.roll if !@six.selected 
+        @one.selected   ? @one.locked = true : @one.roll  
+        @two.selected   ? @two.locked = true : @two.roll  
+        @three.selected ? @three.locked = true : @three.roll
+        @four.selected  ? @four.locked = true : @four.roll 
+        @five.selected  ? @five.locked = true : @five.roll 
+        @six.selected   ? @six.locked = true : @six.roll  
+
+        # @two.roll if !@two.selected 
+        # @three.roll if !@three.selected 
+        # @four.roll if !@four.selected 
+        # @five.roll if !@five.selected 
+        # @six.roll if !@six.selected 
       end
     end
     

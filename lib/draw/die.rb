@@ -1,7 +1,8 @@
 class Die
-	attr_accessor :value, :image, :selected
+	attr_accessor :value, :image, :selected, :locked
 	def initialize()
 		@selected = false
+		@locked   = false
 		roll
 	end
 
