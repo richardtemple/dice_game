@@ -44,6 +44,16 @@ class Main
     puts "Player One Score: #{@player_one_score}"
   end
 
+  def roll1
+    scale = 0.2
+    @one.image.draw(1,     @one.selected   ? 50 : 1, 0, scale, scale )
+    @two.image.draw(100,   @two.selected   ? 50 : 1, 0, scale, scale )
+    @three.image.draw(200, @three.selected ? 50 : 1, 0, scale, scale )
+    @four.image.draw(300,  @four.selected  ? 50 : 1, 0, scale, scale )
+    @five.image.draw(400,  @five.selected  ? 50 : 1, 0, scale, scale )
+    @six.image.draw(500,   @six.selected   ? 50 : 1, 0, scale, scale ) 
+  end
+
   def read_user_input
     gets.chomp
   end

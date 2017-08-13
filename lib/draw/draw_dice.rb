@@ -25,12 +25,7 @@ class DrawDice < Gosu::Window
 
   def roll1
     scale = 0.2
-    @m.one.image.draw(1,     @m.one.selected   ? 50 : 1, 0, scale, scale )
-    @m.two.image.draw(100,   @m.two.selected   ? 50 : 1, 0, scale, scale )
-    @m.three.image.draw(200, @m.three.selected ? 50 : 1, 0, scale, scale )
-    @m.four.image.draw(300,  @m.four.selected  ? 50 : 1, 0, scale, scale )
-    @m.five.image.draw(400,  @m.five.selected  ? 50 : 1, 0, scale, scale )
-    @m.six.image.draw(500,   @m.six.selected   ? 50 : 1, 0, scale, scale ) 
+    @m.roll1
     @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
     draw_rect(600, 1, 100, 100, Gosu::Color.argb(0xff_000000), z = 0, mode = :default)
