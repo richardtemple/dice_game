@@ -16,33 +16,33 @@ class Main
     @one, @two, @three, @four, @five, @six = Die.new, Die.new, Die.new, Die.new, Die.new, Die.new
   end
  
-  def start
-  	# require 'pry'; binding.pry;
-    # x = DrawDice.new.show
-    # x.draw
+  # def start
+  # 	# require 'pry'; binding.pry;
+  #   # x = DrawDice.new.show
+  #   # x.draw
 
-    puts "Welcome to the game!"
-    while !@game_over
-      while re_roll? do
-        roll_dice(@current_dice.count)
-        new_selection = select_dice
-        if (new_selection.count > 0)
-          @selected_dice += new_selection
-        else
-          puts "oops! nothing to select!!"
-          @selected_dice = []
-          break
-        end
-        @current_dice = @current_dice - @selected_dice.flatten
-        puts "New Current dice #{current_dice}"
-        puts "Selected dice: #{@selected_dice.to_s}"
-      end
-      score_sets
-      @current_dice = []
-      @selected_dice = []
-    end
-    puts "Player One Score: #{@player_one_score}"
-  end
+  #   puts "Welcome to the game!"
+  #   while !@game_over
+  #     while re_roll? do
+  #       roll_dice(@current_dice.count)
+  #       new_selection = select_dice
+  #       if (new_selection.count > 0)
+  #         @selected_dice += new_selection
+  #       else
+  #         puts "oops! nothing to select!!"
+  #         @selected_dice = []
+  #         break
+  #       end
+  #       @current_dice = @current_dice - @selected_dice.flatten
+  #       puts "New Current dice #{current_dice}"
+  #       puts "Selected dice: #{@selected_dice.to_s}"
+  #     end
+  #     score_sets
+  #     @current_dice = []
+  #     @selected_dice = []
+  #   end
+  #   puts "Player One Score: #{@player_one_score}"
+  # end
 
   def roll1
     scale = 0.2
