@@ -4,5 +4,7 @@
 
 require './game.rb'
 
-x = Game.new
-x.start
+# x = Game.new
+# x.start
+
+x = DrawDice.new.show

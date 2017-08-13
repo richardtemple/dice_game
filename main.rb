@@ -3,9 +3,9 @@ require "./lib/hand_score.rb"
 require "./lib/draw/draw_dice.rb"
 require "./lib/draw/die.rb"
 
-class Game
+class Main
 
-  attr_accessor :current_dice
+  attr_accessor :current_dice, :one, :two, :three, :four, :five, :six
 
   def initialize
     @current_dice     = []
@@ -13,7 +13,7 @@ class Game
     @game_over        = false
     @player_one_score = 0
     @player_two_score = 0
-    @current_player_num = 1
+    @one, @two, @three, @four, @five, @six = Die.new, Die.new, Die.new, Die.new, Die.new, Die.new
   end
  
   def start

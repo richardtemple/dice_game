@@ -1,5 +1,7 @@
 require 'rubygems' 
 require 'gosu'
+require_relative '../../main'
+
 include Gosu
 
 class DrawDice < Gosu::Window
@@ -7,14 +9,8 @@ class DrawDice < Gosu::Window
   def initialize
     super(1800, 1200)
     self.caption = "Dice"
-    
-    @one   = Die.new
-    @two   = Die.new
-    @three = Die.new
-    @four  = Die.new
-    @five  = Die.new
-    @six   = Die.new
-    @text =  Gosu::Font.new(20)
+    @m = Main.new
+    @text   = Gosu::Font.new(20)
     @cursor = Gosu::Image.new("./media/MousePntr.png")
     @message = "NO"
   end
@@ -29,12 +25,12 @@ class DrawDice < Gosu::Window
 
   def roll1
     scale = 0.2
-    @one.image.draw(1,     @one.selected   ? 50 : 1, 0, scale, scale )
-    @two.image.draw(100,   @two.selected   ? 50 : 1, 0, scale, scale )
-    @three.image.draw(200, @three.selected ? 50 : 1, 0, scale, scale )
-    @four.image.draw(300,  @four.selected  ? 50 : 1, 0, scale, scale )
-    @five.image.draw(400,  @five.selected  ? 50 : 1, 0, scale, scale )
-    @six.image.draw(500,   @six.selected   ? 50 : 1, 0, scale, scale ) 
+    @m.one.image.draw(1,     @m.one.selected   ? 50 : 1, 0, scale, scale )
+    @m.two.image.draw(100,   @m.two.selected   ? 50 : 1, 0, scale, scale )
+    @m.three.image.draw(200, @m.three.selected ? 50 : 1, 0, scale, scale )
+    @m.four.image.draw(300,  @m.four.selected  ? 50 : 1, 0, scale, scale )
+    @m.five.image.draw(400,  @m.five.selected  ? 50 : 1, 0, scale, scale )
+    @m.six.image.draw(500,   @m.six.selected   ? 50 : 1, 0, scale, scale ) 
     @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
     draw_rect(600, 1, 100, 100, Gosu::Color.argb(0xff_000000), z = 0, mode = :default)
@@ -45,24 +41,24 @@ class DrawDice < Gosu::Window
     if mouse_y < 150
       case mouse_x
       when (0..100)
-        @one.selected   = !@one.selected   unless @one.locked
+        @m.one.selected   = !@m.one.selected   unless @m.one.locked # change die to own if it should change? (no if statement here)
       when (100..200)
-        @two.selected   = !@two.selected   unless @two.locked
+        @m.two.selected   = !@m.two.selected   unless @m.two.locked
       when (200..300)
-        @three.selected = !@three.selected unless @three.locked
+        @m.three.selected = !@m.three.selected unless @m.three.locked
       when (300..400)
-        @four.selected  = !@four.selected  unless @four.locked
+        @m.four.selected  = !@m.four.selected  unless @m.four.locked
       when (400..500)
-        @five.selected  = !@five.selected  unless @five.locked
+        @m.five.selected  = !@m.five.selected  unless @m.five.locked
       when (500..600)
-        @six.selected   = !@six.selected   unless @six.locked
+        @m.six.selected   = !@m.six.selected   unless @m.six.locked
       when (600..700)
-        @one.selected   ? @one.locked   = true : @one.roll  
-        @two.selected   ? @two.locked   = true : @two.roll  
-        @three.selected ? @three.locked = true : @three.roll
-        @four.selected  ? @four.locked  = true : @four.roll 
-        @five.selected  ? @five.locked  = true : @five.roll 
-        @six.selected   ? @six.locked   = true : @six.roll  
+        @m.one.selected   ? @m.one.locked   = true : @m.one.roll  
+        @m.two.selected   ? @m.two.locked   = true : @m.two.roll  
+        @m.three.selected ? @m.three.locked = true : @m.three.roll
+        @m.four.selected  ? @m.four.locked  = true : @m.four.roll 
+        @m.five.selected  ? @m.five.locked  = true : @m.five.roll 
+        @m.six.selected   ? @m.six.locked   = true : @m.six.roll  
       end
     end
   end
