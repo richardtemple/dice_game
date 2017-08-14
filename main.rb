@@ -44,7 +44,7 @@ class Main
   #   puts "Player One Score: #{@player_one_score}"
   # end
 
-  def roll1
+  def draw
     scale = 0.2
     @one.image.draw(1,     @one.selected   ? 50 : 1, 0, scale, scale )
     @two.image.draw(100,   @two.selected   ? 50 : 1, 0, scale, scale )
@@ -68,6 +68,23 @@ class Main
     puts
   end
 
+  def roll_clicked
+    # Collect the newly selected die
+    # Does the newly selected dice make a legal selection?
+    #   if not, end turn
+    #  if so, commit selection
+
+
+    @one.selected   ? @one.locked   = true : @one.roll  
+    @two.selected   ? @two.locked   = true : @two.roll  
+    @three.selected ? @three.locked = true : @three.roll
+    @four.selected  ? @four.locked  = true : @four.roll 
+    @five.selected  ? @five.locked  = true : @five.roll 
+    @six.selected   ? @six.locked   = true : @six.roll  
+
+    # update current hand score.
+    
+  end
   def select_dice
     z = SelectionRule.new 
     z.select_dice(dice: @current_dice.dup)

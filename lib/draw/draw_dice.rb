@@ -20,15 +20,10 @@ class DrawDice < Gosu::Window
 
   def draw
     draw_rect(0, 0, 1800, 1200, Gosu::Color.argb(0xff_ffffff))
-    roll1
-  end
-
-  def roll1
-    scale = 0.2
-    @m.roll1
     @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
     draw_rect(600, 1, 100, 100, Gosu::Color.argb(0xff_000000), z = 0, mode = :default)
+    @m.draw
   end
 
   def button_down(id)
@@ -36,24 +31,19 @@ class DrawDice < Gosu::Window
     if mouse_y < 150
       case mouse_x
       when (0..100)
-        @m.one.selected   = !@m.one.selected   unless @m.one.locked # change die to own if it should change? (no if statement here)
+        @m.one.clicked # change die to own if it should change? (no if statement here)
       when (100..200)
-        @m.two.selected   = !@m.two.selected   unless @m.two.locked
+        @m.two.clicked  
       when (200..300)
-        @m.three.selected = !@m.three.selected unless @m.three.locked
+        @m.three.clicked 
       when (300..400)
-        @m.four.selected  = !@m.four.selected  unless @m.four.locked
+        @m.four.clicked 
       when (400..500)
-        @m.five.selected  = !@m.five.selected  unless @m.five.locked
+        @m.five.clicked 
       when (500..600)
-        @m.six.selected   = !@m.six.selected   unless @m.six.locked
+        @m.six.clicked
       when (600..700)
-        @m.one.selected   ? @m.one.locked   = true : @m.one.roll  
-        @m.two.selected   ? @m.two.locked   = true : @m.two.roll  
-        @m.three.selected ? @m.three.locked = true : @m.three.roll
-        @m.four.selected  ? @m.four.locked  = true : @m.four.roll 
-        @m.five.selected  ? @m.five.locked  = true : @m.five.roll 
-        @m.six.selected   ? @m.six.locked   = true : @m.six.roll  
+        @m.roll_clicked
       end
     end
   end
