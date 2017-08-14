@@ -5,17 +5,17 @@ require "./lib/draw/die.rb"
 
 class Main
 
-  attr_accessor :current_dice, :one, :two, :three, :four, :five, :six
+  attr_accessor :current_dice, :one, :two, :three, :four, :five, :six, :current_hand_score, :player_one_score, :player_two_score, :current_player
 
   def initialize
+    @current_player = 1
     @current_dice     = []
     @selected_dice    = []
     @game_over        = false
     @current_hand_score = 0
     @player_one_score = 0
     @player_two_score = 0
-    @one, @two, @three, @four, @five, @six = Die.new, Die.new, Die.new, Die.new, Die.new, Die.new
-    @text   = Gosu::Font.new(20)
+    reset_die
   end
  
   # def start
@@ -54,7 +54,6 @@ class Main
     @four.image.draw(300,  @four.selected  ? 50 : 1, 0, scale, scale )
     @five.image.draw(400,  @five.selected  ? 50 : 1, 0, scale, scale )
     @six.image.draw(500,   @six.selected   ? 50 : 1, 0, scale, scale ) 
-    @text.draw("Score: HI Die = #{@current_hand_score}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
   end
 
   def read_user_input
@@ -68,33 +67,40 @@ class Main
       print @current_dice[counter].to_s
       print ", " unless counter == die_count - 1
     end
-    puts
+
   end
 
   def roll_clicked
-    # Collect the newly selected die
-    # Does the newly selected dice make a legal selection?
-    #   if not, end turn
-    #  if so, commit selection
-    # does it make more sense to keep a collection of rollable dice or
-    # check each die to see if it's locked?
+    dice.each { |die| die.lock if die.selected }
 
+    if (current_selection == [])
+      return
+    end
 
-    @one.selected   ? @one.lock   : @one.roll  
-    @two.selected   ? @two.lock   : @two.roll  
-    @three.selected ? @three.lock : @three.roll
-    @four.selected  ? @four.lock  : @four.roll 
-    @five.selected  ? @five.lock  : @five.roll 
-    @six.selected   ? @six.lock   : @six.roll  
+    dice.each { |die| die.roll if !die.selected }
 
     if !current_selection_valid?
-      @hand_over = true
+      @current_hand_score = 0
+      hand_over
     else
       @current_hand_score += HandScore.new.score_sets(sets: current_selection)
     end
+  end
 
-# require 'pry'; binding.pry
-    # update current hand score.
+  def end_turn_clicked
+    @one.lock   if @one.selected
+    @two.lock   if  @two.selected  
+    @three.lock if @three.selected
+    @four.lock  if @four.selected
+    @five.lock  if @five.selected
+    @six.lock   if @six.selected
+
+    if current_selection_valid?
+      @current_hand_score += HandScore.new.score_sets(sets: current_selection)
+    else
+      @current_hand_score = 0
+    end
+    hand_over
   end
 
   def select_dice
@@ -137,5 +143,23 @@ class Main
 
   def current_selection_valid?
     HandScore.new.score_sets(sets: current_selection) > 0
+  end
+
+  def hand_over
+    if @current_player == 1
+      @player_one_score += @current_hand_score
+      @current_hand_score = 0
+      reset_die
+      @current_player = 2
+    else
+      @player_two_score += @current_hand_score
+      @current_hand_score = 0
+      reset_die
+      @current_player = 1
+    end
+  end
+
+  def reset_die
+    @one, @two, @three, @four, @five, @six = Die.new, Die.new, Die.new, Die.new, Die.new, Die.new
   end
 end
