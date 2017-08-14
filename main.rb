@@ -11,9 +11,11 @@ class Main
     @current_dice     = []
     @selected_dice    = []
     @game_over        = false
+    @current_hand_score = 0
     @player_one_score = 0
     @player_two_score = 0
     @one, @two, @three, @four, @five, @six = Die.new, Die.new, Die.new, Die.new, Die.new, Die.new
+    @text   = Gosu::Font.new(20)
   end
  
   # def start
@@ -52,6 +54,7 @@ class Main
     @four.image.draw(300,  @four.selected  ? 50 : 1, 0, scale, scale )
     @five.image.draw(400,  @five.selected  ? 50 : 1, 0, scale, scale )
     @six.image.draw(500,   @six.selected   ? 50 : 1, 0, scale, scale ) 
+    @text.draw("Score: HI Die = #{@current_hand_score}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
   end
 
   def read_user_input
@@ -73,18 +76,27 @@ class Main
     # Does the newly selected dice make a legal selection?
     #   if not, end turn
     #  if so, commit selection
+    # does it make more sense to keep a collection of rollable dice or
+    # check each die to see if it's locked?
 
 
-    @one.selected   ? @one.locked   = true : @one.roll  
-    @two.selected   ? @two.locked   = true : @two.roll  
-    @three.selected ? @three.locked = true : @three.roll
-    @four.selected  ? @four.locked  = true : @four.roll 
-    @five.selected  ? @five.locked  = true : @five.roll 
-    @six.selected   ? @six.locked   = true : @six.roll  
+    @one.selected   ? @one.lock   : @one.roll  
+    @two.selected   ? @two.lock   : @two.roll  
+    @three.selected ? @three.lock : @three.roll
+    @four.selected  ? @four.lock  : @four.roll 
+    @five.selected  ? @five.lock  : @five.roll 
+    @six.selected   ? @six.lock   : @six.roll  
 
+    if !current_selection_valid?
+      @hand_over = true
+    else
+      @current_hand_score += HandScore.new.score_sets(sets: current_selection)
+    end
+
+# require 'pry'; binding.pry
     # update current hand score.
-    
   end
+
   def select_dice
     z = SelectionRule.new 
     z.select_dice(dice: @current_dice.dup)
@@ -108,5 +120,22 @@ class Main
       puts "No Reroll!"
       return false
     end
+  end
+
+  def dice
+    [] << @one << @two << @three << @four << @five << @six
+  end
+
+  def current_selection
+    selection = dice.select { |die| die.new_lock? }
+    if selection.count > 0
+      [] << selection.map { |die| die.value }
+    else
+      []
+    end
+  end
+
+  def current_selection_valid?
+    HandScore.new.score_sets(sets: current_selection) > 0
   end
 end

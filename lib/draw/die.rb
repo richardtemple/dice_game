@@ -3,6 +3,7 @@ class Die
 	def initialize()
 		@selected = false
 		@locked   = false
+		@new_lock = false
 		roll
 	end
 
@@ -13,5 +14,22 @@ class Die
 
 	def clicked
 		@selected = !@selected unless @locked
+	end
+
+	def lock
+		if @locked
+			@new_lock = false
+		else
+			@locked = true
+			@new_lock = true
+		end
+	end
+
+	def new_lock?
+		@new_lock
+	end
+
+	def post_turn
+		@new_lock = false
 	end
 end

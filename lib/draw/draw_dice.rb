@@ -20,7 +20,7 @@ class DrawDice < Gosu::Window
 
   def draw
     draw_rect(0, 0, 1800, 1200, Gosu::Color.argb(0xff_ffffff))
-    @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
+    # @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 0, 0.1, 0.1
     draw_rect(600, 1, 100, 100, Gosu::Color.argb(0xff_000000), z = 0, mode = :default)
     @m.draw

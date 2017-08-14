@@ -5,6 +5,7 @@ class HandScore
 	end
 
 	def score_sets(sets:)
+		# require 'pry'; binding.pry
 		sets.each do |set|
 			send("score_#{set[0].to_s}", set: set)
 		end
@@ -21,6 +22,9 @@ class HandScore
 	end
 
 	def score_2(set:)
+		if set.count < 3
+			return
+		end
 		@total_hand_score += 200
 		if set.count > 3
 			(set.count - 3).times {@total_hand_score += 200}
@@ -28,6 +32,9 @@ class HandScore
 	end
 	
 	def score_3(set:)
+		if set.count < 3
+			return
+		end
 		@total_hand_score += 300
 		if set.count > 3
 			(set.count - 3).times {@total_hand_score += 300}
@@ -35,6 +42,9 @@ class HandScore
 	end
 	
 	def score_4(set:)
+		if set.count < 3
+			return
+		end
 		@total_hand_score += 400
 		if set.count > 3
 			(set.count - 3).times {@total_hand_score += 400}
@@ -51,6 +61,9 @@ class HandScore
 	end
 	
 	def score_6(set:)
+		if set.count < 3
+			return
+		end
 		@total_hand_score += 600
 		if set.count > 3
 			(set.count - 3).times {@total_hand_score += 600}
