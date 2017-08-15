@@ -29,7 +29,9 @@ class Die
 		@new_lock
 	end
 
-	def post_turn
+	def reset
 		@new_lock = false
+		@selected = false
+		@locked   = false
 	end
 end

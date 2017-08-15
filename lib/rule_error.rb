@@ -1,0 +1,2 @@
+class RuleError < StandardError
+end

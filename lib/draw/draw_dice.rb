@@ -7,7 +7,7 @@ include Gosu
 class DrawDice < Gosu::Window
 
   def initialize
-    super(1800, 1200)
+    super(1000, 500)
     self.caption = "Dice"
     @m = Main.new
     @text   = Gosu::Font.new(20)
@@ -17,6 +17,7 @@ class DrawDice < Gosu::Window
     @end_button_label = Gosu::Font.new(20)
     @player1_label = Gosu::Font.new(20)
     @player2_label = Gosu::Font.new(20)
+    @status_label = Gosu::Font.new(20)
 
   end
 
@@ -24,6 +25,7 @@ class DrawDice < Gosu::Window
   end
 
   def draw
+    
     draw_rect(0, 0, 1000, 500, Gosu::Color.argb(0xff_ffffff))
     # @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 10, 0.1, 0.1
@@ -34,10 +36,13 @@ class DrawDice < Gosu::Window
     @current_player_msg.draw("Player #{@m.current_player} current hand = #{@m.current_hand_score}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @player1_label.draw("Player 1 Score: #{@m.player_one_score}", 10, 200, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @player2_label.draw("Player 2 Score: #{@m.player_two_score}", 10, 250, 1, 1.0, 1.0, Gosu::Color::BLACK)
+    @status_label.draw("#{@status_label_text}", 10, 300, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @m.draw
   end
 
   def button_down(id)
+
+    return unless id == 256  # left click only
     if mouse_y < 150
       case mouse_x
       when (0..100)
