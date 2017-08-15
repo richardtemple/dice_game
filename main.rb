@@ -2,6 +2,7 @@ require "./lib/selection_rules/selection_rule.rb"
 require "./lib/hand_score.rb"
 require "./lib/draw/draw_dice.rb"
 require "./lib/draw/die.rb"
+require "./lib/rule_error.rb"
 
 class Main
 
@@ -56,34 +57,29 @@ class Main
     @six.image.draw(500,   @six.selected   ? 50 : 1, 0, scale, scale ) 
   end
 
-  def read_user_input
-    gets.chomp
-  end
-
-  def roll_dice(die_count = 6)
-    die_count = 6 if die_count == 0
-    die_count.times do |counter|
-      @current_dice[counter] = rand(6) + 1
-      print @current_dice[counter].to_s
-      print ", " unless counter == die_count - 1
+  def roll_clicked
+    unless (dice.any? { |die| die.selected && !die.locked })
+      return
     end
 
-  end
-
-  def roll_clicked
     dice.each { |die| die.lock if die.selected }
+    # require 'pry' ; binding.pry
+    if !current_selection_valid?
 
-    if (current_selection == [])
+      dice.each do |die|
+        if (die.selected && die.new_lock?)
+          die.reset
+        end
+      end
       return
     end
 
     dice.each { |die| die.roll if !die.selected }
 
-    if !current_selection_valid?
-      @current_hand_score = 0
-      hand_over
-    else
-      @current_hand_score += HandScore.new.score_sets(sets: current_selection)
+    @current_hand_score += HandScore.new.score_sets(sets: current_selection)
+
+    if (dice.all? { |die| die.selected})
+      dice.each { |die| die.reset}
     end
   end
 
@@ -103,31 +99,6 @@ class Main
     hand_over
   end
 
-  def select_dice
-    z = SelectionRule.new 
-    z.select_dice(dice: @current_dice.dup)
-  end
-
-  def score_sets
-    new_score = HandScore.new.score_sets(sets: @selected_dice)
-  	puts "Total Score: #{new_score}"
-    @player_one_score += new_score
-    if @player_one_score >= 10000
-      @game_over = true
-    end
-  end
-  
-  def re_roll?
-    puts "count: #{@current_dice.count}"
-    if @current_dice.count > 3 || @current_dice.count == 0
-      puts "Roll!"
-      return true
-    else
-      puts "No Reroll!"
-      return false
-    end
-  end
-
   def dice
     [] << @one << @two << @three << @four << @five << @six
   end
@@ -142,7 +113,11 @@ class Main
   end
 
   def current_selection_valid?
-    HandScore.new.score_sets(sets: current_selection) > 0
+    begin
+      HandScore.new.score_sets(sets: current_selection) > 0
+    rescue RuleError => e
+      false
+    end
   end
 
   def hand_over
@@ -162,4 +137,45 @@ class Main
   def reset_die
     @one, @two, @three, @four, @five, @six = Die.new, Die.new, Die.new, Die.new, Die.new, Die.new
   end
+
+
+  # def select_dice
+  #   z = SelectionRule.new 
+  #   z.select_dice(dice: @current_dice.dup)
+  # end
+
+  # def score_sets
+  #   new_score = HandScore.new.score_sets(sets: @selected_dice)
+  #   puts "Total Score: #{new_score}"
+  #   @player_one_score += new_score
+  #   if @player_one_score >= 10000
+  #     @game_over = true
+  #   end
+  # end
+  
+  # def re_roll?
+  #   puts "count: #{@current_dice.count}"
+  #   if @current_dice.count > 3 || @current_dice.count == 0
+  #     puts "Roll!"
+  #     return true
+  #   else
+  #     puts "No Reroll!"
+  #     return false
+  #   end
+  # end
+
+  # def read_user_input
+  #   gets.chomp
+  # end
+
+  # def roll_dice(die_count = 6)
+  #   die_count = 6 if die_count == 0
+  #   die_count.times do |counter|
+  #     @current_dice[counter] = rand(6) + 1
+  #     print @current_dice[counter].to_s
+  #     print ", " unless counter == die_count - 1
+  #   end
+
+  # end
+
 end

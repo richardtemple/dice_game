@@ -6,10 +6,17 @@ class HandScore
 
 	def score_sets(sets:)
 		# require 'pry'; binding.pry
-		sets.each do |set|
-			send("score_#{set[0].to_s}", set: set)
+		puts "in score_sets: #{sets}"
+
+		begin
+			sets.each do |set|
+				puts "set count: #{set.count}"
+				send("score_#{set[0].to_s}", set: set)
+			end
+			@total_hand_score
+		rescue RuleError => e
+			0
 		end
-		@total_hand_score
 	end
 
 	def score_1(set:)
@@ -23,7 +30,7 @@ class HandScore
 
 	def score_2(set:)
 		if set.count < 3
-			return
+			raise RuleError.new
 		end
 		@total_hand_score += 200
 		if set.count > 3
@@ -33,7 +40,7 @@ class HandScore
 	
 	def score_3(set:)
 		if set.count < 3
-			return
+			raise RuleError.new
 		end
 		@total_hand_score += 300
 		if set.count > 3
@@ -43,7 +50,7 @@ class HandScore
 	
 	def score_4(set:)
 		if set.count < 3
-			return
+			raise RuleError.new
 		end
 		@total_hand_score += 400
 		if set.count > 3
@@ -62,7 +69,7 @@ class HandScore
 	
 	def score_6(set:)
 		if set.count < 3
-			return
+			raise RuleError.new
 		end
 		@total_hand_score += 600
 		if set.count > 3
