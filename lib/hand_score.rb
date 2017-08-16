@@ -5,20 +5,22 @@ class HandScore
 	end
 
 	def score_sets(sets:)
-		# require 'pry'; binding.pry
+		
 		puts "in score_sets: #{sets}"
-
+		puts "sets[0] = #{sets[0]}"
+		if (check_for_straight set: sets[0]) #unless sets[0] == nil
+			@total_hand_score += 2000
+			return @total_hand_score
+		end
 		begin
 			sets.each do |set|
 				puts "set count: #{set.count}"
 				sub_set = []
 				set.uniq.each { |num| sub_set << set.select {|sel| sel == num }} # y.each {|num| sub_array << x.select {|z| z==num}}
 				sub_set.each do |sub|
-
 					send("score_#{sub[0].to_s}", set: sub)
 				end
 			end
-			check_for_straight set: sets[0] unless sets[0] == nil
 			@total_hand_score
 		rescue RuleError => e
 			0
@@ -84,8 +86,11 @@ class HandScore
 	end
 
 	def check_for_straight(set:)
+		# require 'pry'; binding.pry
 		if (set.sort == [1, 2, 3, 4, 5, 6])
-			@total_hand_score += 2000
+			true
+		else
+		  false
 		end
 	end
 

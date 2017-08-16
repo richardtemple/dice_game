@@ -71,9 +71,26 @@ describe HandScore do
       assert_equal score, 1200
     end
 
-    it "should return 0" do
-      score = hand_score.score_sets(sets: [])
-      assert_equal score, 0
+    # it "should return 0" do
+    #   score = hand_score.score_sets(sets: [])
+    #   assert_equal score, 0
+    # end
+  end
+
+  describe "scores with less than 7 die using multiple numbers" do
+    it "should return 500" do
+      score = hand_score.score_sets(sets: [[4, 4, 4, 1]])
+      assert_equal score, 500
+    end
+
+    it "should return 500" do
+      score = hand_score.score_sets(sets: [[4, 4, 4, 5, 5]])
+      assert_equal score, 500
+    end
+
+    it "should return 2000" do
+      score = hand_score.score_sets(sets: [[1, 2, 4, 3, 5, 6]])
+      assert_equal score, 2000
     end
   end
 end
