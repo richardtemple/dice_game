@@ -1,6 +1,6 @@
 require "./lib/selection_rules/selection_rule.rb"
 require "./lib/hand_score.rb"
-require "./lib/draw/draw_dice.rb"
+# require "./lib/draw/draw_dice.rb"
 require "./lib/draw/die.rb"
 require "./lib/rule_error.rb"
 
