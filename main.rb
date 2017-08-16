@@ -79,7 +79,7 @@ class Main
     @current_hand_score += HandScore.new.score_sets(sets: current_selection)
 
     if (dice.all? { |die| die.selected})
-      dice.each { |die| die.reset}
+      dice.each { |die| die.reset; die.roll}
     end
   end
 

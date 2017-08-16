@@ -11,8 +11,14 @@ class HandScore
 		begin
 			sets.each do |set|
 				puts "set count: #{set.count}"
-				send("score_#{set[0].to_s}", set: set)
+				sub_set = []
+				set.uniq.each { |num| sub_set << set.select {|sel| sel == num }} # y.each {|num| sub_array << x.select {|z| z==num}}
+				sub_set.each do |sub|
+
+					send("score_#{sub[0].to_s}", set: sub)
+				end
 			end
+			check_for_straight set: sets[0] unless sets[0] == nil
 			@total_hand_score
 		rescue RuleError => e
 			0
@@ -76,4 +82,11 @@ class HandScore
 			(set.count - 3).times {@total_hand_score += 600}
 		end
 	end
+
+	def check_for_straight(set:)
+		if (set.sort == [1, 2, 3, 4, 5, 6])
+			@total_hand_score += 2000
+		end
+	end
+
 end
