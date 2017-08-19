@@ -6,7 +6,7 @@ require "./lib/rule_error.rb"
 
 class Main
 
-  attr_accessor :current_dice, :one, :two, :three, :four, :five, :six, :current_hand_score, :player_one_score, :player_two_score, :current_player
+  attr_accessor :current_dice, :one, :two, :three, :four, :five, :six, :current_hand_score, :player_one_score, :player_two_score, :current_player, :opponent
 
   def initialize
     @current_player = 1
@@ -19,33 +19,29 @@ class Main
     reset_die
   end
  
-  # def start
-  # 	# require 'pry'; binding.pry;
-  #   # x = DrawDice.new.show
-  #   # x.draw
+  def play_computer_hand
 
-  #   puts "Welcome to the game!"
   #   while !@game_over
-  #     while re_roll? do
-  #       roll_dice(@current_dice.count)
-  #       new_selection = select_dice
-  #       if (new_selection.count > 0)
-  #         @selected_dice += new_selection
-  #       else
-  #         puts "oops! nothing to select!!"
-  #         @selected_dice = []
-  #         break
-  #       end
-  #       @current_dice = @current_dice - @selected_dice.flatten
-  #       puts "New Current dice #{current_dice}"
-  #       puts "Selected dice: #{@selected_dice.to_s}"
-  #     end
-  #     score_sets
+      while re_roll? do
+        roll_dice(@current_dice.count)
+        new_selection = select_dice
+        if (new_selection.count > 0)
+          @selected_dice += new_selection
+        else
+          puts "oops! nothing to select!!"
+          @selected_dice = []
+          break
+        end
+        @current_dice = @current_dice - @selected_dice.flatten
+        puts "New Current dice #{current_dice}"
+        puts "Selected dice: #{@selected_dice.to_s}"
+      end
+      score_sets
   #     @current_dice = []
   #     @selected_dice = []
   #   end
-  #   puts "Player One Score: #{@player_one_score}"
-  # end
+    puts "Computer Player Score: #{@player_two_score}"
+  end
 
   def draw
     scale = 0.2
@@ -63,9 +59,7 @@ class Main
     end
 
     dice.each { |die| die.lock if die.selected }
-    # require 'pry' ; binding.pry
     if !current_selection_valid?
-
       dice.each do |die|
         if (die.selected && die.new_lock?)
           die.reset
@@ -125,7 +119,11 @@ class Main
       @player_one_score += @current_hand_score
       @current_hand_score = 0
       reset_die
-      @current_player = 2
+      if opponent_is_computer?
+        play_computer_hand
+      else
+        @current_player = 2
+      end
     else
       @player_two_score += @current_hand_score
       @current_hand_score = 0
@@ -139,43 +137,45 @@ class Main
   end
 
 
-  # def select_dice
-  #   z = SelectionRule.new 
-  #   z.select_dice(dice: @current_dice.dup)
-  # end
+  def select_dice
+    z = SelectionRule.new 
+    z.select_dice(dice: @current_dice.dup)
+  end
 
-  # def score_sets
-  #   new_score = HandScore.new.score_sets(sets: @selected_dice)
-  #   puts "Total Score: #{new_score}"
-  #   @player_one_score += new_score
-  #   if @player_one_score >= 10000
-  #     @game_over = true
-  #   end
-  # end
+  def score_sets
+    new_score = HandScore.new.score_sets(sets: @selected_dice)
+    puts "Total Score: #{new_score}"
+    @player_two_score += new_score
+    if @player_two_score >= 10000
+      @game_over = true
+    end
+  end
   
-  # def re_roll?
-  #   puts "count: #{@current_dice.count}"
-  #   if @current_dice.count > 3 || @current_dice.count == 0
-  #     puts "Roll!"
-  #     return true
-  #   else
-  #     puts "No Reroll!"
-  #     return false
-  #   end
-  # end
+  def re_roll?
+    puts "count: #{@current_dice.count}"
+    if @current_dice.count > 3 || @current_dice.count == 0
+      puts "Roll!"
+      return true
+    else
+      puts "No Reroll!"
+      return false
+    end
+  end
 
-  # def read_user_input
-  #   gets.chomp
-  # end
+  def read_user_input
+    gets.chomp
+  end
 
-  # def roll_dice(die_count = 6)
-  #   die_count = 6 if die_count == 0
-  #   die_count.times do |counter|
-  #     @current_dice[counter] = rand(6) + 1
-  #     print @current_dice[counter].to_s
-  #     print ", " unless counter == die_count - 1
-  #   end
+  def roll_dice(die_count = 6)
+    die_count = 6 if die_count == 0
+    die_count.times do |counter|
+      @current_dice[counter] = rand(6) + 1
+      print @current_dice[counter].to_s
+      print ", " unless counter == die_count - 1
+    end
+  end
 
-  # end
-
+  def opponent_is_computer?
+    @opponent.downcase == "c"
+  end
 end

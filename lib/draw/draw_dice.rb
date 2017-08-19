@@ -7,9 +7,13 @@ include Gosu
 class DrawDice < Gosu::Window
 
   def initialize
+    puts "Welcome to the game!"
+    puts "do you want to play against the computer or another human? (c/h)"
+    opponent = gets.chomp
     super(1000, 500)
     self.caption = "Dice"
     @m = Main.new
+    @m.opponent = opponent
     @text   = Gosu::Font.new(20)
     @cursor = Gosu::Image.new("./media/MousePntr.png")
     @current_player_msg = Gosu::Font.new(20)
