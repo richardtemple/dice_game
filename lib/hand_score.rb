@@ -8,7 +8,12 @@ class HandScore
 		
 		puts "in score_sets: #{sets}"
 		puts "sets[0] = #{sets[0]}"
-		if (check_for_straight set: sets[0]) #unless sets[0] == nil
+
+		if sets[0] == nil
+			return 0
+		end
+
+		if ((sets[0] != nil) && (sets[0].count == 6) && (check_for_straight set: sets[0])) #unless sets[0] == nil
 			@total_hand_score += 2000
 			return @total_hand_score
 		end
