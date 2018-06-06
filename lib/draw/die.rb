@@ -1,3 +1,4 @@
+require 'gosu'
 class Die
 	attr_accessor :value, :image, :selected, :locked
 	def initialize()
@@ -9,7 +10,7 @@ class Die
 
 	def roll
 		@value = rand(6) + 1
-		@image = Gosu::Image.new("./media/#{@value}.png")
+		@image = Gosu::Image.new("./media/#{@value}.png") # code smell
 	end
 
 	def clicked

@@ -1,47 +1,33 @@
 require 'minitest/autorun'
 require_relative '../main'
+require "minitest/spec"
+require 'gosu'
 
-class TestGame < Minitest::Test
+describe HandScore do 
+  let(:main) { Main.new }
 
-  # def setup
-  #   @game = Game.new
-  # end
+  describe "play_computer_hand should update player_two_score" do
+    it "should be greater after 5 turns" do
+      old_score = main.player_two_score
+      main.play_computer_hand
+      main.play_computer_hand
+      main.play_computer_hand
+      main.play_computer_hand
+      main.play_computer_hand
+      assert old_score < main.player_two_score
+    end
+  end
 
-  # def test_game_exists
-  #   assert @game != nil
-  # end
-
-  # def test_game_starts
-  #   out, err = capture_io do
-  #     @game.start
-  #   end
-
-  #   assert out.include? "Welcome to the game!"
-  #   assert_equal "", err
-  # end
-
-  # def test_get_input_to_roll
-
-  # end
-
-  # def test_roll_dice
-  #   @game.roll_dice
-  #   assert @game.current_dice.count == 6
-  # end
-
-  # def test_read_user_input
-  #   with_stdin do |user|
-  #     user.puts "user input"
-  #     assert_equal(@game.read_user_input, "user input")
-  #   end
-  # end
-
-  # def with_stdin
-  #   stdin = $stdin             # remember $stdin
-  #   $stdin, write = IO.pipe    # create pipe assigning its "read end" to $stdin
-  #   yield write                # pass pipe's "write end" to block
-  # ensure
-  #   write.close                # close pipe
-  #   $stdin = stdin             # restore $stdin
-  # end
+  describe "re_roll should determine if computer should try to roll again" do
+    it "reroll? should be true" do
+      main.one.value = 1
+      main.two.value = 2
+      main.three.value = 3
+      main.four.value = 4
+      main.five.value = 5
+      main.six.value = 6
+      main.select_dice
+      assert main.re_roll? == true
+    end
+  end
 end

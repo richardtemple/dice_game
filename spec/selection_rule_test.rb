@@ -45,4 +45,11 @@ describe SelectionRule do
       assert_equal selection, [[3, 3, 3, 3]]
     end
   end
+
+  describe "selection should account for different numbers per roll" do
+    it "should return [[1], [2, 2, 2]]" do
+      selection = rule.select_dice(dice: [2, 1, 2, 2, 3, 6])
+      assert_equal selection, [[1], [2, 2, 2]]
+    end
+  end
 end

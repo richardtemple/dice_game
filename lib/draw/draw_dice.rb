@@ -22,16 +22,10 @@ class DrawDice < Gosu::Window
     @player1_label = Gosu::Font.new(20)
     @player2_label = Gosu::Font.new(20)
     @status_label = Gosu::Font.new(20)
-
-  end
-
-  def update
   end
 
   def draw
-    
     draw_rect(0, 0, 1000, 500, Gosu::Color.argb(0xff_ffffff))
-    # @text.draw("Score: HI Die = #{@message}", 10, 150, 1, 1.0, 1.0, Gosu::Color::BLACK)
     @cursor.draw self.mouse_x, self.mouse_y, 10, 0.1, 0.1
     draw_rect(600, 1, 100, 100, Gosu::Color.argb(0xff_000000), z = 0, mode = :default)
     @roll_button_label.draw("ROLL!", 615, 40, 1, 1.0, 1.0, Gosu::Color::WHITE)
@@ -45,7 +39,6 @@ class DrawDice < Gosu::Window
   end
 
   def button_down(id)
-
     return unless id == 256  # left click only
     if mouse_y < 150
       case mouse_x
@@ -65,7 +58,7 @@ class DrawDice < Gosu::Window
         @m.roll_clicked
       end
     end
-    # require
+    # end turn button
     if ((151..300) === mouse_y && (600..700) === mouse_x)
       @m.end_turn_clicked
     end

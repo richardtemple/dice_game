@@ -1,6 +1,5 @@
 require "./lib/selection_rules/selection_rule.rb"
 require "./lib/hand_score.rb"
-# require "./lib/draw/draw_dice.rb"
 require "./lib/draw/die.rb"
 require "./lib/rule_error.rb"
 
@@ -20,8 +19,6 @@ class Main
   end
  
   def play_computer_hand
-
-  #   while !@game_over
       while re_roll? do
         roll_dice(@current_dice.count)
         new_selection = select_dice
@@ -37,9 +34,6 @@ class Main
         puts "Selected dice: #{@selected_dice.to_s}"
       end
       score_sets
-  #     @current_dice = []
-  #     @selected_dice = []
-  #   end
     puts "Computer Player Score: #{@player_two_score}"
   end
 

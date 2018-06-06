@@ -1,10 +1,4 @@
 #!/usr/bin/env ruby
-
-# play game!!
-
-require './game.rb'
-
-# x = Game.new
-# x.start
+require './lib/draw/draw_dice.rb'
 
 x = DrawDice.new.show
