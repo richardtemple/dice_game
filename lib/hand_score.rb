@@ -91,7 +91,6 @@ class HandScore
 	end
 
 	def check_for_straight(set:)
-		# require 'pry'; binding.pry
 		if (set.sort == [1, 2, 3, 4, 5, 6])
 			true
 		else
